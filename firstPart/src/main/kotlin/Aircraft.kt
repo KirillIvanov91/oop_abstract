@@ -1,3 +1,5 @@
+import java.util.Random
+
 abstract class Aircraft(maxWeight: Int) : Transporter(maxWeight) {
     //Характеристики для всех боингов 737 одинаковые, поэтому они абстракты и будут реализованны в каждой реализации модели самолета
     abstract val brand: String
@@ -33,7 +35,17 @@ abstract class Aircraft(maxWeight: Int) : Transporter(maxWeight) {
 
         return seatScheme[row][number]
     }
+fun getAvailableSeat():Seat?{
+    val availableSeat = mutableListOf<Seat>()
+        seatScheme.forEachIndexed { rowIndex, row ->
+            row.forEachIndexed { seatIndex, passenger ->
+                if (passenger == null)
+                    availableSeat.add(Seat(rowIndex,'A'+ seatIndex))
+            }
 
+    }
+    return availableSeat.randomOrNull()
+}
 
     abstract fun getSeatScheme()
 
